@@ -39,7 +39,7 @@ This project combines an **ESP8266 microcontroller with MAX30102 sensor** and a 
 1. Open the Arduino sketch from `/arduino/pulse_oximeter/pulse_oximeter.ino` in **Arduino IDE**.
 2. Configure your **2.4 GHz Wi-Fi** SSID and password in `secrets.h`.
 3. Upload the code to ESP8266.
-4. Open Serial Monitor → you will see the ESP8266 IP address (e.g. `192.168.1.xxx`).
+4. Open Serial Monitor → you will see the ESP8266 IP address (e.g. `195.168.1.xxx`).
 5. Test in browser:  http://<ESP_IP>/sensor
 
 
@@ -50,12 +50,11 @@ This project combines an **ESP8266 microcontroller with MAX30102 sensor** and a 
 npm install
 ```
 
-Make sure your computer or device running the React app is connected to the same 2.4 GHz network as the ESP8266.
-
 Start development server:
 ```bash
 npm run dev
 ```
+
 Access the frontend in your browser
 
 

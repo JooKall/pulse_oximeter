@@ -35,8 +35,8 @@ This project combines an **ESP8266 microcontroller with MAX30102 sensor** and a 
 
 ## How to run
 
-### ESP8266 (Arduino)
-1. Open the Arduino sketch from `/arduino` folder in **Arduino IDE**.
+### ESP8266 (ArduinoIDE)
+1. Open the Arduino sketch from `/arduino/pulse_oximeter/pulse_oximeter.ino` in **Arduino IDE**.
 2. Configure your Wi-Fi SSID and password in `secrets.h`.
 3. Upload the code to ESP8266.
 4. Open Serial Monitor → you will see the ESP8266 IP address (e.g. `192.168.1.xxx`).

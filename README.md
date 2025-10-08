@@ -55,3 +55,7 @@ npm run dev
 ```
 Access the frontend in your browser
 
+
+### Using the Sensor
+1. Place your finger gently on the MAX30102 sensor.
+2. Observe the frontend UI as the heart rate and SpO2 values update.

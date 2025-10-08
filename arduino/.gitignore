@@ -1,0 +1,18 @@
+# Piilotetaan WiFi-salaisuudet
+secrets.h
+
+# Käännetyt binääritiedostot
+*.bin
+*.elf
+*.hex
+
+# Väliaikaiset ja väliaikaiset kansiot
+*.o
+*.d
+*.cpp.o
+*.h.gch
+
+# Arduino IDE:n temporary-kansiot
+*.tmp
+*.bak
+*.log

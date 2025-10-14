@@ -4,13 +4,24 @@ const App = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetch("/sensor") // <--- just '/sensor', Vite proxy forwards it
-        .then((res) => res.json())
+    // Function to fetch latest sensor reading
+    const fetchSensorData = () => {
+      fetch("/api/sensor/latest") // <-- new endpoint
+        .then((res) => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          return res.json();
+        })
         .then((json) => setData(json))
         .catch((err) => console.error(err));
-    }, 5000);
+    };
 
+    // Fetch immediately
+    fetchSensorData();
+
+    // Fetch every 5 seconds
+    const interval = setInterval(fetchSensorData, 2000);
+
+    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 

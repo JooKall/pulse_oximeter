@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/sensor': 'http://192.168.1.187'
+      '/api/sensor': 'http://localhost:3001'
     }
   }
 })

@@ -6,20 +6,19 @@ const App = () => {
   useEffect(() => {
     // Function to fetch latest sensor reading
     const fetchSensorData = () => {
-      fetch("/api/sensor/latest") // <-- new endpoint
+      fetch("/api/sensorData/latest")
         .then((res) => {
-          if (!res.ok) throw new Error("Network response was not ok");
           return res.json();
         })
         .then((json) => setData(json))
-        .catch((err) => console.error(err));
+        .catch((err) => console.error("Fetch error:", err));
     };
 
     // Fetch immediately
     fetchSensorData();
 
     // Fetch every 5 seconds
-    const interval = setInterval(fetchSensorData, 2000);
+    const interval = setInterval(fetchSensorData, 5000);
 
     // Clean up interval on component unmount
     return () => clearInterval(interval);

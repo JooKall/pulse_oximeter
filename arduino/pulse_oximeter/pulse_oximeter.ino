@@ -4,14 +4,12 @@
 #include <WiFiClient.h>
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266mDNS.h>
-//#include <ESP8266WebServer.h>  // Include the WebServer library
 #include <Arduino_JSON.h>      // Use Arduino_JSON
 #include "secrets.h"           // Includes WiFi info
 
 // Objects
 DFRobot_MAX30102 particleSensor;  // Declare sensor object
 ESP8266WiFiMulti wifiMulti;       // Create an instance of the ESP8266WiFiMulti class, called 'wifiMulti'
-//ESP8266WebServer server(80);      // Create a webserver object that listens for HTTP request on port 80
 WiFiClient client;  // WiFiClient object
 
 // Sensor values
@@ -70,12 +68,6 @@ void setup(void) {
   particleSensor.sensorConfiguration(/*ledBrightness=*/50, /*sampleAverage=*/SAMPLEAVG_4,
                                      /*ledMode=*/MODE_MULTILED, /*sampleRate=*/SAMPLERATE_100,
                                      /*pulseWidth=*/PULSEWIDTH_411, /*adcRange=*/ADCRANGE_16384);
-
-  // Web server setup
-  //server.on("/sensor", handleSensorData);
-  //server.onNotFound(handleNotFound);  // When a client requests an unknown URI (i.e. something other than "/"), call function "handleNotFound"
-  //server.begin();  // Actually start the server
-  //Serial.println("HTTP server started");
 }
 
 // Main loop
@@ -93,37 +85,14 @@ void loop(void) {
     sendDataToBackend();
     lastBackendPost = now;
   }
-
-  // Listen for HTTP requests from clients
-  //server.handleClient();
 }
-
-
-// Handlers
-/*void handleNotFound() {
-  server.send(404, "text/plain", "404: Not found");  // Send HTTP status 404 (Not Found) when there's no handler for the URI in the request
-}*/
-
-/*void handleSensorData() {
-  // Build JSON object
-  JSONVar json;
-  json["heartRate"] = heartRate;
-  json["heartRateValid"] = heartRateValid;
-  json["SPO2"] = SPO2;
-  json["SPO2Valid"] = SPO2Valid;
-
-  // Convert JSONVar to string
-  String jsonString = JSON.stringify(json);
-
-  server.send(200, "application/json", jsonString);
-}*/
 
 // POST to Backend
 void sendDataToBackend() {
   if (WiFi.status() != WL_CONNECTED) return;
 
   HTTPClient http;
-  http.begin(client, "http://" BACKEND_IP ":3001/api/sensor");
+  http.begin(client, "http://" BACKEND_IP ":3001/api/sensorData");
   http.addHeader("Content-Type", "application/json");
 
   // Build JSON object

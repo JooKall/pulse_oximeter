@@ -25,9 +25,6 @@ unsigned long lastBackendPost = 0;
 const unsigned long backendInterval = 5000;  // 5s
 
 // Fuction prototypes
-void handleRoot();
-void handleNotFound();
-void handleSensorData();
 void sendDataToBackend();
 
 // Setup

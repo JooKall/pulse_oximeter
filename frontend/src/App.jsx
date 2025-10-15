@@ -1,44 +1,23 @@
-import { useState, useEffect } from "react";
+import { useLatestSensorData } from "./hooks/useLatestSensorData";
+import { useSensorHistory } from "./hooks/useSensorHistory";
+import LatestData from "./components/LatestData";
+import HistoryData from "./components/HistoryData";
 
 const App = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    // Function to fetch latest sensor reading
-    const fetchSensorData = () => {
-      fetch("/api/sensorData/latest")
-        .then((res) => {
-          return res.json();
-        })
-        .then((json) => setData(json))
-        .catch((err) => console.error("Fetch error:", err));
-    };
-
-    // Fetch immediately
-    fetchSensorData();
-
-    // Fetch every 5 seconds
-    const interval = setInterval(fetchSensorData, 5000);
-
-    // Clean up interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+  const { data, loading: latestLoading } = useLatestSensorData(5000);
+  const { history, loading: historyLoading, refresh } = useSensorHistory();
 
   return (
     <div>
       <h1>MAX30102 Sensor Data</h1>
-      {data ? (
-        <>
-          <p>
-            Heart Rate: {data.heartRate} (valid: {data.heartRateValid})
-          </p>
-          <p>
-            SPO2: {data.SPO2} (valid: {data.SPO2Valid})
-          </p>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
+
+      <LatestData data={data} loading={latestLoading} />
+
+      <HistoryData
+        data={history}
+        loading={historyLoading}
+        onRefresh={refresh}
+      />
     </div>
   );
 };
